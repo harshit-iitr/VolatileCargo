@@ -16,16 +16,17 @@
 My final submission uses a **Proximal Policy Optimization (PPO)** agent trained to perform trajectory optimization on the provided road profiles. The agent successfully learned to compensate for the 20ms actuator delay by analyzing the delay buffer history.
 
 ### Model Performance
-*(Place your output plot image here, e.g., output/rl_response.png)*
-![RL Response](output/rl_response.png)
 
+![RL Response](output/Screenshot%202025-12-29%20200740.png)
+
+*(Blue line represents movement of sprung mass, green represents actual track)*
 ---
 
 ## 🧪 Approaches & Experiments
 To solve the challenge of High-Frequency Jerk with Latency, I experimented with three distinct control strategies:
 
-### 1. The Winner: Deep Reinforcement Learning (PPO)
-* **Approach:** Trained a PPO agent using `stable-baselines3`.
+### 1. Deep Reinforcement Learning (PPO)
+* **Approach:** Trained a PPO (Proximal Policy Optimisation) agent using `stable-baselines3`.
 * **Innovation:** Augmented the state space to include the **Delay Buffer History**. This allowed the policy network to learn the causal relationship between a command sent at $t$ and the force applied at $t+20ms$.
 * **Tuning:** Utilized a **Cubic Reward Function** ($Reward \propto -|Jerk|^3$). This non-linear penalty forced the agent to prioritize minimizing large "spikes" (like the Profile 4 speed breaker) over small vibrations.
 
